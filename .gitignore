@@ -1,0 +1,4 @@
+OpenStack/terraform.tfvars
+Azure/terraform.tfvars
+OpenStack/.terraform/plugins/windows_amd64/terraform-provider-openstack_v1.26.0_x4.exe
+Azure/.terraform/plugins/windows_amd64/terraform-provider-azurerm_v2.0.0_x5.exe
