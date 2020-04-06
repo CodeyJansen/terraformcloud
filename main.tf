@@ -4,7 +4,7 @@ provider "openstack" {
  auth_url = "http://192.168.37.100:5000/v3" # == OS_AUTH_URL
  domain_name = "Default" # == OS_USER_DOMAIN_NAME | OS_PROJECT_DOMAIN_NAME
  region = "RegionOne"
- tenant_name = "admin" # == OS_PROJECT_NAME
+ tenant_name = "admin" # == OS_PROJECT_NAME2
 }
 
 resource "openstack_compute_instance_v2" "Webserver" {
