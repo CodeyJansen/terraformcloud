@@ -15,13 +15,12 @@ resource "openstack_compute_instance_v2" "Webserver" {
  count = var.NumberOfVMS
  name = "Web-${count.index}"
  image_id = "750b1dc0-5990-4ee5-829a-301230941410"
- flavor_id = "1"
+ flavor_id = var.flavor_id_tiny
  security_groups = [openstack_compute_secgroup_v2.SG-Webserver.id]
 
   network {
     uuid = "f991cf96-4853-440f-ac99-68d0dfd92a7f"
     name = "private"
-    
   }
 } 
 # Network security groups
@@ -36,12 +35,13 @@ resource "openstack_compute_instance_v2" "Webserver" {
     ip_protocol = "tcp"
     cidr        = "0.0.0.0/0"
   }
-#  1 security maatregel
+#  Rule 2 - SSH toegang webservers
     rule {
     from_port   = 22
     to_port     = 22
     ip_protocol = "tcp"
     cidr        = var.SSHAccessIPRange
+# ICMP toestaan
   }
     rule {
       from_port = -1
