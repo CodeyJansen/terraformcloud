@@ -1,14 +1,21 @@
+# Terraform voor Azure. 
+# Gemaakt door Codey Jansen en Thomas Brinkman
+
+
+# Resource group aanmaken
+
 resource "azurerm_resource_group" "k8s" {
     name     = var.resource_group_name
     location = var.location
 }
 
+# Workspace voor Insight
 resource "random_id" "log_analytics_workspace_name_suffix" {
     byte_length = 8
 }
 
+# Workspace naam, de workspace krijgt een random ID omdat deze uniek moet zijn in heel Azure
 resource "azurerm_log_analytics_workspace" "test" {
-    # The WorkSpace name has to be unique across the whole of azure, not just the current subscription/tenant.
     name                = "${var.log_analytics_workspace_name}-${random_id.log_analytics_workspace_name_suffix.dec}"
     location            = var.log_analytics_workspace_location
     resource_group_name = azurerm_resource_group.k8s.name
@@ -28,6 +35,8 @@ resource "azurerm_log_analytics_solution" "test" {
         product   = "OMSGallery/ContainerInsights"
     }
 }
+
+# Cluster aanmaken
 
 resource "azurerm_kubernetes_cluster" "k8s" {
     name                = var.cluster_name
@@ -61,6 +70,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
         }
     }
 
+# Dev omgeving na testen omzetten naar productie
     tags = {
         Environment = "Development"
     }

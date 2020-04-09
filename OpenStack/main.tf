@@ -1,23 +1,26 @@
+# Terraform voor Openstack
 # Door Codey Jansen en Thomas Brinkman
 
  
 # Provider en project credentials
 provider "openstack" {
- user_name = "admin" # == OS_USERNAME
- password = "P@ssword" # == OS_PASSWORD # 1 Security maatregel
- auth_url = "http://192.168.37.100:5000/v3" # == OS_AUTH_URL
- domain_name = "Default" # == OS_USER_DOMAIN_NAME | OS_PROJECT_DOMAIN_NAME
- region = "RegionOne"
- tenant_name = var.Klantnaam # Naam van de klant
+ user_name = var.user_name
+ password = var.password
+ auth_url = var.auth_url
+ domain_name = var.domain_name
+ region = var.region
+ tenant_name = var.tenant_name
 }
 
+# Webserver template
 resource "openstack_compute_instance_v2" "Webserver" {
  count = var.NumberOfVMS
  name = "Web-${count.index}"
- image_id = "750b1dc0-5990-4ee5-829a-301230941410"
- flavor_id = var.flavor_id_tiny
+ image_id = var.image_id_CirrosMAF
+ flavor_id = var.flavor_id_5euro
  security_groups = [openstack_compute_secgroup_v2.SG-Webserver.id]
-
+ # KeypairID voor security
+ key_pair = "keypair1"
   network {
     uuid = "f991cf96-4853-440f-ac99-68d0dfd92a7f"
     name = "private"

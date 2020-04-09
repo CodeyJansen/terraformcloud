@@ -1,8 +1,7 @@
 # Terraform voor Azure. 
 # Gemaakt door Codey Jansen en Thomas Brinkman
 
-
-
+#Provider aangeven + credentials refereren
 provider "azurerm" {
   version = "=2.0.0"
 
@@ -17,6 +16,7 @@ features {}
 terraform {
     backend "azurerm" {}
 }
+
 
 ##############################################################
 

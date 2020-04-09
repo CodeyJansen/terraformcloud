@@ -1,3 +1,9 @@
+# Terraform voor Azure. 
+# Gemaakt door Codey Jansen en Thomas Brinkman
+
+# Output voor powershell, certificate nachecken voor security
+
+
 output "client_key" {
     value = azurerm_kubernetes_cluster.k8s.kube_config.0.client_key
 }
